@@ -214,7 +214,7 @@ def save_extrinsic(sparse_path, extrinsics_w2c, img_files, image_suffix):
             id=i,
             qvec=qvec,
             tvec=tvec,
-            camera_id=i,
+            camera_id=1,
             name=name,
             xys=[],  # Empty list as we don't have 2D point information
             point3D_ids=[]  # Empty list as we don't have 3D point IDs

@@ -51,7 +51,7 @@ def save_pose(path, quat_pose, train_cams, llffhold=2):
     # Reorder poses according to colmap IDs
     colmap_poses = []
     for i in range(len(camera_ids)):
-        idx = camera_ids.index(i + 1)  # Find position of camera i+1
+        idx = i  # Find position of camera i+1
         pose = world_to_camera[idx]
         colmap_poses.append(pose)
     
