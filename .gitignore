@@ -11,3 +11,6 @@ diff_rasterization/diff_rast.egg-info
 diff_rasterization/dist
 
 assets/examples
+
+**/__pycache__/
+**/*.ply

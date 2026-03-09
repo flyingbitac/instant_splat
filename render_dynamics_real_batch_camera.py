@@ -31,13 +31,6 @@ from utils.sh_utils import SH2RGB, C0
 from dynamics.pointmass import ContinuousPointMassModel
 from dynamics.utils.math import mvp
 
-# Load Renderer from gaussian_renderer/__init__3dgs.py (non-standard filename)
-# _spec = _ilu.spec_from_file_location("_renderer3dgs", _REPO / "gaussian_renderer" / "__init__3dgs.py")
-# _mod = _ilu.module_from_spec(_spec)
-# _spec.loader.exec_module(_mod)
-# Renderer = _mod.Renderer
-
-
 def load_ply_ref(ply_path: str, device: torch.device):
     """Load a 3DGS Gaussian PLY into a GaussianModel and return (model, center, radius)."""
     from plyfile import PlyData
