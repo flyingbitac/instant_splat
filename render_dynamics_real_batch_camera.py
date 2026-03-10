@@ -156,6 +156,8 @@ def load_ply_flexible(ply_path: str, device: torch.device):
         return load_ply_ref(ply_path, device)
 
     xyz = torch.from_numpy(np.vstack([vd['x'], vd['y'], vd['z']]).T.astype(np.float32)).to(device)
+    # Flip forward(x) and up(z) axes
+    xyz = torch.stack([xyz[:, 0], -xyz[:, 1], -xyz[:, 2]], dim=-1)
 
     if {'red', 'green', 'blue'}.issubset(names):
         rgb = np.vstack([vd['red'], vd['green'], vd['blue']]).T.astype(np.float32) / 255.0
@@ -207,7 +209,7 @@ def build_action_sequences(n_cams: int, n_steps: int, device: torch.device) -> t
             if t < n_steps // 6 or t >= 5 * n_steps // 6:
                 a = action_forward
             else:
-                a = action_left
+                a = action_forward
             cam_actions.append(a)
         all_actions.append(cam_actions)
     
@@ -357,7 +359,7 @@ def main():
     cfg.action_frame = 'local'
     dyn = ContinuousPointMassModel(cfg, device)
     for e in range(n_cams):
-        dyn.reset_idx(torch.tensor([e], device=device), torch.tensor([-2., 0., 0.], device=device))
+        dyn.reset_idx(torch.tensor([e], device=device), torch.tensor([-4., 0., 0.], device=device))
     print(f'    dyn init in {time.time()-t1:.2f}s')
 
     print('[2] Build action sequences and simulate...')
